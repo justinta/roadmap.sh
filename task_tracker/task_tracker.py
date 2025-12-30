@@ -88,7 +88,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def open_json_file(path, op='r', data=None):
+def open_json_file(path: str, op: str = 'r', data: dict = {}) -> dict | None:
     if op == 'r':
         with open(path, op) as f:
             json_file = json.load(f)
@@ -99,7 +99,7 @@ def open_json_file(path, op='r', data=None):
 
 ### END UTILS ###
 
-def add_task(task_file, title, description, status='todo'):
+def add_task(task_file: str, title: str, description: str, status: str = 'todo') -> None:
     '''
     Add a new task to the json file
     
@@ -127,7 +127,7 @@ def add_task(task_file, title, description, status='todo'):
     open_json_file(task_file, op='w', data=task_json)
 
 
-def list_tasks(task_file, list_option="all"):
+def list_tasks(task_file: str, list_option: str = "all") -> None:
     
     task_json = open_json_file(task_file)
     for tasks in task_json['tasks']:
@@ -145,10 +145,9 @@ def list_tasks(task_file, list_option="all"):
         else: 
             continue
     print('----------------------------------------')
-    return True
 
 
-def mark_task(task_file, task_id, status):
+def mark_task(task_file: str, task_id: str, status: str) -> None:
 
     task_json = open_json_file(task_file, op='r')
 
@@ -158,10 +157,8 @@ def mark_task(task_file, task_id, status):
     
     open_json_file(task_file, op='w', data=task_json)
 
-    return task_json
 
-
-def update_task(task_file, task_id, title, description):
+def update_task(task_file: str, task_id: str, title: str, description: str) -> None:
     updated_time = datetime.now()
     time_format = '%Y-%m-%d %H:%M:%S'
     task_json = open_json_file(task_file, op='r')
@@ -178,12 +175,12 @@ def update_task(task_file, task_id, title, description):
             print(f'Updated task #{tasks["id"]}: {tasks}')
     
 
-def delete_task(task_file, task_id):
+def delete_task(task_file: str, task_id: str) -> None:
     print('Not Implemented')
 
 
 
-def main():
+def main() -> None:
     args = parse_args()
 
     task_file_name = 'tasks.json'
